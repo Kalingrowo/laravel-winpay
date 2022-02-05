@@ -1,0 +1,32 @@
+{
+    "name": "mu-hasan/laravel-winpay",
+    "description": "A package that integrate WinPay Payment Gateway with Laravel Framework",
+    "autoload": {
+        "psr-4": {
+            "MuHasan\\LaravelWinpay\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "M Hasan",
+            "email": "mhasan.udn@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^5.6|^7.0|^8.0",
+        "illuminate/support": "^5.1|^6.0|^7.0|^8.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MuHasan\\LaravelWinpay\\WinpayServiceProvider"
+            ],
+            "aliases": {
+                "Winpay": "MuHasan\\LaravelWinpay\\WinpayFacade"
+            }
+        }
+    }
+}
