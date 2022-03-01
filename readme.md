@@ -90,18 +90,23 @@ Winpay::getToolbar($paymentChannel, $transaction, $user, $items);
 
 You must passing `$paymentChannel` parameter from one of `getToolbar()` response.
 
-The `$transaction` parameter you must passing the model that implements `MuHasan\LaravelWinpay\BillingTransaction` interface and define the `getReff()` and `getAmount()` functions into it.
+The `$transaction` parameter you must passing the model that implements `MuHasan\LaravelWinpay\BillingTransaction` interface and define the `getBillTransactionEndAt()`, `getBillTransactionReff()`, and `getBillTransactionAmount()` functions into it.
 
 ```php
 class FooTransaction extends Model implements BillingTransaction
 {
     //...
-    getReff(): string
+    public function getBillTransactionEndAt(): \DateTime
     {
         return $this->reff;
     }
 
-    getAmount(): int
+    public function getBillTransactionReff(): string
+    {
+        return $this->reff;
+    }
+
+    public function getBillTransactionAmount(): int
     {
         return $this->total;
     }
@@ -109,68 +114,68 @@ class FooTransaction extends Model implements BillingTransaction
 }
 ```
 
-The `$user` parameter you must passing the model that implements `MuHasan\LaravelWinpay\BillingUser` interface and define the `getName()`, `getPhone()`, and `getEmail()` functions into it.
+The `$user` parameter you must passing the model that implements `MuHasan\LaravelWinpay\BillingUser` interface and define the `getgetBillUserName()`, `getgetBillUserPhone()`, and `getgetBillUserEmail()` functions into it.
 
 ```php
 class FooUser extends Model implements BillingUser
 {
     //...
-    getName(): string
+    public function getBillUserName(): string
     {
         return $this->name;
     }
 
-    getPhone(): string
+    public function getBillUserPhone(): string
     {
         return $this->phone;
     }
 
     // nullable
-    getEmail(): ?string
+    public function getBillUserEmail(): ?string
     {
         return $this->email;
         // OR
-        return null;
+        // return null;
     }
     //...
 }
 ```
 
-The `$items` parameter you must passing array of the model that implements `MuHasan\LaravelWinpay\BillingItem` interface and define the `getName()`, `getQty()`, `getUnitPrice()`, `getSku()`, and `getDesc()` functions into it.
+The `$items` parameter you must passing array of the model that implements `MuHasan\LaravelWinpay\BillingItem` interface and define the `getBillItemName()`, `getBillItemQty()`, `getBillItemUnitPrice()`, `getBillItemSku()`, and `getBillItemDesc()` functions into it.
 
 ```php
 class FooItem extends Model implements BillingItem
 {
     //...
-    getName(): string
+    public function getBillItemName(): string
     {
         return $this->name;
     }
 
-    getQty(): int
+    public function getBillItemQty(): int
     {
         return $this->qty;
     }
 
-    getUnitPrice(): int
+    public function getBillItemUnitPrice(): int
     {
         return $this->amount;
     }
 
     // nullable
-    getSku(): ?string
+    public function getBillItemSku(): ?string
     {
         return $this->short_id;
         // OR
-        return null;
+        // return null;
     }
 
     // nullable
-    getDesc(): ?string
+    public function getBillItemDesc(): ?string
     {
         return $this->note;
         // OR
-        return null;
+        // return null;
     }
     //...
 }
