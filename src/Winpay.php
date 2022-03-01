@@ -74,17 +74,17 @@ class Winpay
         foreach ($rawItems as $item) {
             if ($item  instanceof BillingItem) {
                 $parsedItem = [
-                    'name' => $item->getName(),
-                    'qty' => $item->getQty(),
-                    'unitPrice' => $item->getUnitPrice(),
+                    'name' => $item->getBillItemName(),
+                    'qty' => $item->getBillItemQty(),
+                    'unitPrice' => $item->getBillItemUnitPrice(),
                 ];
-                if ($item->getSku()) $parsedItem['sku'] = $item->getSku();
-                if ($item->getDesc()) $parsedItem['desc'] = $item->getDesc();
+                if ($item->getBillItemSku()) $parsedItem['sku'] = $item->getBillItemSku();
+                if ($item->getBillItemDesc()) $parsedItem['desc'] = $item->getBillItemDesc();
                 array_push($items, $parsedItem);
             }
         }
-        $transaction_reff = $transaction->getReff();
-        $amount = $transaction->getAmount();
+        $transaction_reff = $transaction->getBillTransactionReff();
+        $amount = $transaction->getBillTransactionAmount();
         $token = $this->getToken();
         $signature = $this->createSignature($transaction_reff, $amount);
         $payload = [
@@ -98,15 +98,15 @@ class Winpay
             // 'spi_signature' => 0.0,
             'spi_token' => $this->pk1 . $this->pk2,
             'spi_merchant_transaction_reff' => $transaction_reff,
-            'spi_billingPhone' => $user->getPhone(),
-            'spi_billingName' => $user->getName(),
-            'spi_paymentDate' => now()->addHours(11)->format('YmdHis'),
+            'spi_billingPhone' => $user->getBillUserPhone(),
+            'spi_billingName' => $user->getBillUserName(),
+            'spi_paymentDate' => $transaction->getBillTransactionEndAt()->format('YmdHis'),
             'get_link' => 'no',
         ];
-        if ($user->getEmail()) $payload['spi_billingEmail'] = $user->getEmail();
+        if ($user->getBillUserEmail()) $payload['spi_billingEmail'] = $user->getBillUserEmail();
         if ($isQris) {
             $payload['spi_qr_type'] = 'dynamic';
-            $payload['spi_qr_subname'] = $user->getPhone();
+            $payload['spi_qr_subname'] = $user->getBillUserPhone();
         }
 
         return $this->encryptPayload($token['data']['token'], $payload);

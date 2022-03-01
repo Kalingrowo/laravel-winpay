@@ -4,9 +4,9 @@ namespace MuHasan\LaravelWinpay;
 
 interface BillingItem
 {
-    function getName(): string;
-    function getQty(): int;
-    function getUnitPrice(): int;
-    function getSku(): ?string;
-    function getDesc(): ?string;
+    function getBillItemName(): string;
+    function getBillItemQty(): int;
+    function getBillItemUnitPrice(): int;
+    function getBillItemSku(): ?string;
+    function getBillItemDesc(): ?string;
 }

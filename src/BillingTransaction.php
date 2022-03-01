@@ -2,8 +2,11 @@
 
 namespace MuHasan\LaravelWinpay;
 
+use DateTime;
+
 interface BillingTransaction
 {
-    function getReff(): string;
-    function getAmount(): int;
+    function getBillTransactionEndAt(): \DateTime;
+    function getBillTransactionReff(): string;
+    function getBillTransactionAmount(): int;
 }

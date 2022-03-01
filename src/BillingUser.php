@@ -4,7 +4,7 @@ namespace MuHasan\LaravelWinpay;
 
 interface BillingUser
 {
-    function getPhone(): string;
-    function getName(): string;
-    function getEmail(): ?string;
+    function getBillUserPhone(): string;
+    function getBillUserName(): string;
+    function getBillUserEmail(): ?string;
 }
