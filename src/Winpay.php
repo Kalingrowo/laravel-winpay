@@ -148,4 +148,12 @@ class Winpay
         $output = trim(base64_encode($output));
         return $output;
     }
+   
+    /**
+    * @param string $reffId reff_id from generated payment-code response
+    */
+    public function checkTransactionStatusNonQris($reffId)
+    {
+        return $this->sendRequest('/transaction/check-wpi-transaction?id_transaction_inquiry=' . $reffId);
+    }
 }
