@@ -154,6 +154,6 @@ class Winpay
     */
     public function checkTransactionStatusNonQris($reffId)
     {
-        return $this->sendRequest('/transaction/check-wpi-transaction?id_transaction_inquiry=' . $reffId);
+        return $this->sendRequest('/transaction/check-wpi-transaction?id_transaction_inquiry=' . $reffId, true);
     }
 }
