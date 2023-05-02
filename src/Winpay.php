@@ -72,7 +72,7 @@ class Winpay
     {
         $items = [];
         foreach ($rawItems as $item) {
-            if ($item  instanceof BillingItem) {
+            if ($item instanceof BillingItem) {
                 $parsedItem = [
                     'name' => $item->getBillItemName(),
                     'qty' => $item->getBillItemQty(),
@@ -80,6 +80,15 @@ class Winpay
                 ];
                 if ($item->getBillItemSku()) $parsedItem['sku'] = $item->getBillItemSku();
                 if ($item->getBillItemDesc()) $parsedItem['desc'] = $item->getBillItemDesc();
+                array_push($items, $parsedItem);
+            } else {
+                $parsedItem = [
+                    'name' => $item['name'],
+                    'qty' => $item['qty'],
+                    'unitPrice' => $item['unit_price'],
+                ];
+                if ($item['sku']) $parsedItem['sku'] = $item['sku'];
+                if ($item['description']) $parsedItem['desc'] = $item['description'];
                 array_push($items, $parsedItem);
             }
         }
