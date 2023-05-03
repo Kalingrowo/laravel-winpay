@@ -115,7 +115,7 @@ class Winpay
         if ($user->getBillUserEmail()) $payload['spi_billingEmail'] = $user->getBillUserEmail();
         if ($isQris) {
             $payload['spi_qr_type'] = 'dynamic';
-            $payload['spi_qr_subname'] = $user->getBillUserPhone();
+            // $payload['spi_qr_subname'] = $user->getBillUserPhone();
         }
 
         return $this->encryptPayload($token['data']['token'], $payload);
