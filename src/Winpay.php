@@ -148,12 +148,21 @@ class Winpay
         $output = trim(base64_encode($output));
         return $output;
     }
-   
+
     /**
     * @param string $reffId reff_id from generated payment-code response
     */
     public function checkTransactionStatusNonQris($reffId)
     {
         return $this->sendRequest('/transaction/check-wpi-transaction?id_transaction_inquiry=' . $reffId, true);
+    }
+
+    /**
+    * @param string $merchantId
+    * @param int $offset total displayed data, max = 100
+    */
+    public function getListQris($merchantId, $offset = 0)
+    {
+        return $this->sendRequest('/qris/get_list_qr', true, 'merchant_id=' . $merchantId . '&offset=' . $offset);
     }
 }
